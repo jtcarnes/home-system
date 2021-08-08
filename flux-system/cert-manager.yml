@@ -1,0 +1,30 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://charts.jetstack.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: cert-manager
+      version: v1.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager
+        namespace: fluxsystem
+      interval: 1m
+  values:
+    installCRDs: true
+    prometheus:
+      enabled: false
