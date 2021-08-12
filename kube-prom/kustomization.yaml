@@ -1,0 +1,5 @@
+---
+namespace: monitoring
+resources:
+  - namespace.yml
+  - kube-prom.yml

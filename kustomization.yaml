@@ -3,3 +3,4 @@ resources:
   - flux-system/
   - cert-manager/
   - actions-runner/
+  # - kube-prom/
