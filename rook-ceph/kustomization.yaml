@@ -3,3 +3,5 @@ namespace: rook-ceph
 resources:
   - namespace.yml
   - rook-ceph.yml
+  - rook-cluster.yml
+  - storage-class.yml
