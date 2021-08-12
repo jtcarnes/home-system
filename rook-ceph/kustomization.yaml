@@ -1,0 +1,5 @@
+---
+namespace: rook-ceph
+resources:
+  - namespace.yml
+  - rook-ceph.yml
