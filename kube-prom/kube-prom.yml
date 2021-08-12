@@ -23,6 +23,6 @@ spec:
     interval: 1m
   install:
     crds: CreateReplace
-  values:
-    grafana:
-      enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: kube-prom-values

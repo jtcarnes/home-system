@@ -3,3 +3,8 @@ namespace: monitoring
 resources:
   - namespace.yml
   - kube-prom.yml
+
+secretGenerator:
+  - name: kube-prom-values
+    files:
+      - values.yml=kube-prom-values.yml
