@@ -1,6 +1,9 @@
 ---
 resources:
-  - flux-system/
-  - cert-manager/
+  # - flux-system/
+  # - cert-manager/
   - actions-runner/
   # - kube-prom/
+
+configurations:
+  - transformer.yaml
