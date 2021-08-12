@@ -1,0 +1,4 @@
+authSecret:
+  github_app_id: ID TO ENCRYPT
+  github_app_installation_id: ID_TO_ENCRYPT
+  github_app_private_key: TO ENCRYPT
