@@ -16,7 +16,7 @@ spec:
   chart:
     spec:
       chart: actions-runner-controller
-      version: actions-runner-controller-0.12.7
+      version: ">=0.12.7 <0.13.0"
       sourceRef:
         kind: HelmRepository
         name: actions-runner-controller
