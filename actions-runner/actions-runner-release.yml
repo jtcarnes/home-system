@@ -26,5 +26,5 @@ spec:
   install:
     createNamespace: true
   valuesFrom:
-    - kind: Secret50
+    - kind: Secret
       name: github-actions-creds
