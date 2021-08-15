@@ -21,6 +21,8 @@ spec:
         kind: HelmRepository
         name: prometheus-community
   install:
+    crds: Create
+  upgrade:
     crds: CreateReplace
   valuesFrom:
     - kind: Secret

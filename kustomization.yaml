@@ -6,5 +6,8 @@ resources:
   - kube-prom/
   # - rook-ceph/
 
+  # for keeping our cni up to date
+  - cilium/
+
 configurations:
   - transformer.yaml
