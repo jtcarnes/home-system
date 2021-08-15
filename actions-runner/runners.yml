@@ -4,7 +4,7 @@ kind: RunnerDeployment
 metadata:
   name: carnes-consulting-runners
 spec:
-  replicas: 1
+  replicas: 0
   template:
     spec:
       organization: Carnes-Consulting

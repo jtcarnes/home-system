@@ -3,7 +3,7 @@ resources:
   - flux-system/
   - cert-manager/
   - actions-runner/
-  - kube-prom/
+  # - kube-prom/
   # - rook-ceph/
 
   # for keeping our cni up to date
