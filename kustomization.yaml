@@ -4,7 +4,7 @@ resources:
   - cert-manager/
   - actions-runner/
   - kube-prom/
-  - rook-ceph/
+  # - rook-ceph/
 
 configurations:
   - transformer.yaml
