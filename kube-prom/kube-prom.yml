@@ -17,10 +17,9 @@ spec:
     spec:
       chart: kube-prometheus-stack
       version: ">=17.0.0 <18.0.0"
-    sourceRef:
-      kind: HelmRepository
-      name: prometheus-community
-    interval: 1h0m0s
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
   install:
     crds: CreateReplace
   valuesFrom:
