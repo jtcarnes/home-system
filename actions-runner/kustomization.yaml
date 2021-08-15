@@ -10,4 +10,4 @@ resources:
 secretGenerator:
   - name: github-actions-creds
     files:
-      - values.yaml=actions-runner-creds.yml
+      - values.yaml=secrets.actions-runner-creds.yml
