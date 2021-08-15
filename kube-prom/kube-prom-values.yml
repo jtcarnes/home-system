@@ -1,3 +1,2 @@
 grafana:
   enabled: false
-  adminPassword: ENCRYPT_ME

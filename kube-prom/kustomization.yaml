@@ -8,3 +8,4 @@ secretGenerator:
   - name: kube-prom-values
     files:
       - values.yml=kube-prom-values.yml
+      - secrets.yml=secrets.kube-prom-values.yml

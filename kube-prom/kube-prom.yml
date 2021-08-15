@@ -26,3 +26,6 @@ spec:
   valuesFrom:
     - kind: Secret
       name: kube-prom-values
+    - kind: Secret
+      name: kube-prom-values
+      valuesKey: secrets.yml
