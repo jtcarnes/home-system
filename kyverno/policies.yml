@@ -4,8 +4,10 @@ kind: Kustomization
 metadata:
   name: kyverno-policies
 spec:
-  dependsOn:
-    - name: HelmRelease/kyverno-crds
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: kyverno-crds
   interval: 1h0m0s
   path: "./kyverno/policies/"
   prune: true
