@@ -5,5 +5,5 @@ resources:
   - namespace.yml
   - kyverno.yml
   - kyverno-crds.yml
-  - grafana-dashboards.yml
+  - dashboards/
   # - policies.yml
