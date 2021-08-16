@@ -13,9 +13,30 @@ metadata:
   name: kyverno
 spec:
   interval: 1h0m0s
+  dependsOn:
+    - name: kyverno-crd
   chart:
     spec:
       chart: kyverno
+      version: ">=2.0.0 <3.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+  values:
+    serviceMonitor:
+      enabled: false
+    networkPolicy:
+      enabled: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kyverno-crds
+spec:
+  interval: 1h0m0s
+  chart:
+    spec:
+      chart: kyverno-crds
       version: ">=2.0.0 <3.0.0"
       sourceRef:
         kind: HelmRepository
@@ -24,8 +45,3 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
-  values:
-    serviceMonitor:
-      enabled: false
-    networkPolicy:
-      enabled: true
