@@ -5,7 +5,7 @@ metadata:
   name: kyverno-policies
 spec:
   dependsOn:
-    - name: kyverno
+    - name: kyverno-crds
   interval: 1h0m0s
   path: "./kyverno/policies/"
   prune: true
