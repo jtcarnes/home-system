@@ -6,4 +6,4 @@ resources:
   - kyverno.yml
   - kyverno-crds.yml
   - grafana-dashboards.yml
-  - policies.yml
+  # - policies.yml
