@@ -1,6 +1,6 @@
 ---
 configMapGenerator:
-  - name: kyverno
+  - name: kyverno-dashboard
     files:
       - https://raw.githubusercontent.com/kyverno/kyverno/main/dashboard/grafana/dashboard.json
 
