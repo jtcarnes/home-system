@@ -5,7 +5,7 @@ metadata:
   name: kyverno-dashboards
 spec:
   dependsOn:
-    - name: grafana
+    - name: HelmRelease/kube-prometheus-stack
       namespace: monitoring
   interval: 1h0m0s
   path: "./kyverno/dashboards/"
