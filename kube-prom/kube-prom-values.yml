@@ -9,6 +9,14 @@ alertmanager:
 
 prometheus:
   prometheusSpec:
-    podMonitorSelector:
-      matchLabels:
-        app.kubernetes.io/part-of: flux
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    additionalPodMonitors:
+      - name: fluxcd
+        joblabel: 'fluxcd'
+        namespaceSelector:
+          matchNames:
+            - flux-system
+        selector:
+          matchLabels:
+            app.kubernetes.io/part-of: flux
