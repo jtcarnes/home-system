@@ -15,7 +15,7 @@ spec:
   interval: 1h0m0s
   chart:
     spec:
-      chart: kyvernohttps://kyverno.github.io/kyverno/
+      chart: kyverno
       version: ">=2.0.0 <3.0.0"
       sourceRef:
         kind: HelmRepository

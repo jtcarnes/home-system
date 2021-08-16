@@ -3,6 +3,7 @@ resources:
   - flux-system/
   - cert-manager/
   - actions-runner/
+  - kyverno/
   # - kube-prom/
   # - rook-ceph/
 
