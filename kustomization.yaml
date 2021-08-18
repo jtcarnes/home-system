@@ -1,14 +1,20 @@
 ---
 resources:
   - flux-system/
-  - cert-manager/
-  # - actions-runner/
-  # - kyverno/
-  # - kube-prom/
-  # - rook-ceph/
-
-  # for keeping our cni up to date
+    # for keeping our cni up to date
   - cilium/
+
+  ## For action runner system
+  # - cert-manager/
+  # - actions-runner/
+  ## Security Policy Management
+  # - kyverno/
+
+  ## Monitoring
+  # - kube-prom/
+
+  ## Option for distributed storage
+  # - rook-ceph/
 
 configurations:
   - transformer.yaml
