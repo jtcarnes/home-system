@@ -33,7 +33,7 @@ spec:
           - drop
           - dns:query;ignoreAAAA
         serviceMonitor:
-          enabled: true
+          enabled: false
     containerRuntime:
       integration: auto
     prometheus:
