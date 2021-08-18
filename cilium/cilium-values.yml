@@ -1,0 +1,20 @@
+hubble:
+  metrics:
+    enabled:
+      - tcp
+      - flow
+      - icmp
+      - http
+      - drop
+      - dns:query;ignoreAAAA
+    serviceMonitor:
+      enabled: false
+containerRuntime:
+  integration: auto
+prometheus:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    namespace: "monitoring"
+resourceQuotas:
+  enabled: true

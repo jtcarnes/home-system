@@ -22,24 +22,6 @@ spec:
         name: cilium
   install:
     crds: CreateReplace
-  values:
-    hubble:
-      metrics:
-        enabled:
-          - tcp
-          - flow
-          - icmp
-          - http
-          - drop
-          - dns:query;ignoreAAAA
-        serviceMonitor:
-          enabled: false
-    containerRuntime:
-      integration: auto
-    prometheus:
-      enabled: false
-      serviceMonitor:
-        enabled: false
-        namespace: "monitoring"
-    resourceQuotas:
-      enabled: true
+  valuesFrom:
+    - kind: Secret
+      name: cilium-values

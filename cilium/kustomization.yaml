@@ -3,3 +3,8 @@ namespace: kube-system
 
 resources:
   - cilium.yml
+
+secretGenerator:
+  - name: cilium-values
+    files:
+      - values.yaml=cilium-values.yml
