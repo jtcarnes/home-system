@@ -6,7 +6,7 @@ namespace: actions-runner-system
 resources:
   - actions-runner-release.yml
   - namespace.yml
-  - runners.yml
+  - runners-kustomization.yml
 
 secretGenerator:
   - name: github-actions-creds
