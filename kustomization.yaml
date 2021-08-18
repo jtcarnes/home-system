@@ -2,7 +2,7 @@
 resources:
   - flux-system/
   - cert-manager/
-  - actions-runner/
+  # - actions-runner/
   # - kyverno/
   # - kube-prom/
   # - rook-ceph/
