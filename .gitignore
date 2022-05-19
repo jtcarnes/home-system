@@ -1,1 +1,12 @@
-.decrypted*
+## Local .terraform directories
+**/.terraform/*
+venv/
+
+# Sops
+.decrypted~*
+
+# Other files
+kubeconfig
+
+# machineConfigs
+k8s/talos/**/machineConfigs
