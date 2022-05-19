@@ -1,0 +1,12 @@
+namespace: metallb
+resources:
+  - helmrelease.yaml
+  - namespace.yaml
+
+configurations:
+  - transformer.yaml
+
+configMapGenerator:
+  - name: metallb-config
+    files:
+      - config=metallb-config.yaml

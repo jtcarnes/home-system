@@ -1,0 +1,3 @@
+resources:
+  - letsencrypt-cluster-cert.yaml
+  - secrets.sops.yaml

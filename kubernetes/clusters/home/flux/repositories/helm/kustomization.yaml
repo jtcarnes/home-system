@@ -1,0 +1,14 @@
+namespace: flux-system
+resources:
+  - ../../../../../global/flux/repositories/helm
+  - cilium-charts.yaml
+  - fairwinds-charts.yaml
+  - grafana-charts.yaml
+  - ambassador.yaml
+  - descheduler.yaml
+  - kyverno.yaml
+  - metallb.yaml
+  - rook-ceph.yaml
+  - vector-chart.yaml
+  - linkerd.yaml
+  - nfd-charts.yaml

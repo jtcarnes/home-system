@@ -1,0 +1,32 @@
+---
+# TODO(linkerd): add network policies
+# TODO(linkerd): add network policies
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd
+  namespace: linkerd
+spec:
+  interval: 1h0m0s
+  chart:
+    spec:
+      chart: linkerd
+      version: 2.11.1
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  values:
+    controlPlaneTracing: true
+    installNamespace: false
+    identity:
+      issuer:
+        scheme: kubernetes.io/tls
+  valuesFrom:
+    - kind: Secret
+      name: linkerd-identity-issuer
+      valuesKey: ca.crt
+      targetPath: identityTrustAnchorsPEM

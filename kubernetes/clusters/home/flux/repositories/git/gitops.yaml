@@ -1,0 +1,18 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: gitops
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+    # SHANGE
+  url: https://github.com/bjw-s/home-ops.git
+  ignore: |
+    # exclude all
+    /*
+    # include gitops dirs
+    !/kubernetes/global
+    !/kubernetes/clusters/home

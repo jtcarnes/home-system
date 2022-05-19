@@ -1,0 +1,38 @@
+---
+# TODO(ingress): add network policies
+# TODO(ingress): gvisor
+# TODO(ingress): security context
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: emissary-ingress
+  namespace: emissary
+spec:
+  interval: 1h0m0s
+  chart:
+    spec:
+      chart: emissary-ingress
+      version: 7.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: embassador
+        namespace: flux-system
+  values:
+    metrics:
+      serviceMonitor:
+        enabled: true
+
+    autoscaling:
+      enabled: true
+
+    podAnnotations:
+      config.linkerd.io/skip-inbound-ports: "80,443"
+
+    ingressClassResource:
+      default: true
+    service:
+      annotations:
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${LB_INGRESS}"
+      externalTrafficPolicy: local

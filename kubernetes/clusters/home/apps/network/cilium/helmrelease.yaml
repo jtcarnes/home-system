@@ -1,0 +1,102 @@
+---
+# TODO(cilium): update nameserver and servicehost ips
+# TODO(gvisor): hubble gvisor
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  interval: 1h0m0s
+  chart:
+    spec:
+      chart: cilium
+      version: 1.10.3
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  values:
+    kubeProxyReplacement: strict
+    k8sServicePort: 6443
+    k8sServiceHost: NEEDTOSETTOCONTROLPLANEIP
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    ipam:
+      mode: "kubernetes"
+    autoDirectNodeRoutes: true
+    localRedirectPolicy: true
+    rollOutCiliumPods: true
+
+    enpointRoutes:
+      enabled: true
+
+    containerRuntime:
+      integration: auto
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        # Needs to be enabled AFTER prometheus is set up
+        enabled: true
+        namespace: "monitoring"
+    resourceQuotas:
+      enabled: true
+
+    hubble:
+      relay:
+        enabled: true
+        rollOutPods: true
+      ui:
+        enabled: true
+        ingress:
+          enabled: true
+          hosts:
+            - "rook.${CLUSTER_NAME}.${INGRESS_DOMAIN}"
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production
+            external-dns.alpha.kubernetes.io/target: ingress.${INGRESS_DOMAIN}
+            kubernetes.io/ingress.class: ambassador
+          tls:
+            - secretName: tls.rook-ceph
+              hosts:
+                - "rook.${CLUSTER_NAME}.${INGRESS_DOMAIN}"
+
+      metrics:
+        enabled:
+          - tcp
+          - flow
+          - icmp
+          - http
+          - drop
+          - dns:query;ignoreAAAA
+        serviceMonitor:
+          enabled: false
+
+    operator:
+      securityContext:
+        {}
+        # runAsUser: 1001
+        # readOnlyRootFilesystem: true
+      resources: {}
+      # limits:
+      #   cpu: 1000m
+      #   memory: 1Gi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: false
+          # Needs prometheus exposed first
+
+    preflight:
+      enabled: true
+      # SHould be true for updates
+
+    bgp:
+      enabled: false
+      announce:
+        loadbalancerIP: true

@@ -1,0 +1,59 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-cilium
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: "./kubernetes/clusters/home/manifests/network/cilium"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: metallb
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: "./kubernetes/clusters/home/manifests/network/metallb"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ingress
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: kyverno-base
+    - name: linkerd
+  interval: 1h
+  path: "./kubernetes/clusters/home/manifests/network/ingress"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: external-dns
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/network/external-dns"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: gitops

@@ -1,0 +1,4 @@
+namespace: kyverno
+resources:
+  - helmrelease.yaml
+  - namespace.yaml

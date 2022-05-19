@@ -1,0 +1,217 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-namespace
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/namespace"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-prom-stack
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/kube-prometheus-stack"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-thanos
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: selfhosted-minio
+  interval: 1h
+  path: "./kubernetes/clusters/cluster-0/apps/monitoring/thanos"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-botkube
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/botkube"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/grafana"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-vector-aggregator
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/vector/aggregator"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-vector-agent
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+    - name: system-monitoring-vector-aggregator
+  interval: 1h
+  path: "./kubneretes/clusters/home/apps/monitoring/vector/agent"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-loki
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/loki"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-speedtest-exporter
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: kube-prom-stack
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/speedtest-exporter"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: system-monitoring-prometheus-smartctl
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: monitoring-namespace
+#     - name: kube-prom-stack
+#   interval: 5m
+#   path: "./kubernetes/clusters/home/apps/monitoring/prometheus-smartctl"
+#   prune: true
+#   wait: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: system-monitoring-vpa
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+  interval: 1h
+  path: "./k8s/clusters/home/apps/monitoring/vpa"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-goldilocks
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: monitoring-namespace
+    - name: system-monitoring-vpa
+  interval: 1h
+  path: "./kubernetes/clusters/home/apps/monitoring/goldilocks"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: system-monitoring-blackbox-exporter
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: monitoring-namespace
+#     - name: kube-prom-stack
+#   interval: 5m
+#   path: "./kubernetes/clusters/home/apps/monitoring/blackbox-exporter"
+#   prune: true
+#   wait: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-ops

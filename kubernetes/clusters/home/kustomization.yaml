@@ -1,0 +1,4 @@
+resources:
+  - ./flux/repositories/git/gitops.yaml
+  - ./system-deploy.yaml
+  - ./critical

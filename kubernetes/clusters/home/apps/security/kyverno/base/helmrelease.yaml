@@ -1,0 +1,40 @@
+---
+#TODO(kyverno): add network policies
+#TODO(kyverno): add security context
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kyverno
+spec:
+  interval: 1h0m0s
+  chart:
+    spec:
+      chart: kyverno
+      version: 2.3.4
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: flux-system
+  values:
+    replicaCount: 3
+
+    networkPolicy:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    resources:
+      requests:
+        cpu: 203m
+        memory: 225M
+      limits:
+        memory: 857M
+
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: kyverno

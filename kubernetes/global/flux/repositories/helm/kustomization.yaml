@@ -1,0 +1,10 @@
+---
+namespace: flux-system
+resources:
+  - external-dns.yaml
+  - kube-prometheus-community.yaml
+  - cert-manager.yaml
+  - k8s-at-home.yaml
+  - jetstack.yaml
+  - bitnami.yaml
+  - metrics-server.yaml

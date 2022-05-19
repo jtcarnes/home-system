@@ -1,0 +1,4 @@
+namespace: linkerd
+resources:
+  - root-ca.yaml
+  - identity-issuer.yaml

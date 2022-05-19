@@ -1,0 +1,10 @@
+---
+resources:
+  - security.yaml
+  - networking.yaml
+  - linkerd.yaml
+  - cert-manager.yaml
+  - system.yaml
+  - monitoring.yaml
+  - storage.yaml
+  - vpn.yaml
