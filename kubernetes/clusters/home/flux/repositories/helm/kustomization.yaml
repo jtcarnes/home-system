@@ -1,6 +1,11 @@
 namespace: flux-system
 resources:
-  - ../../../../../global/flux/repositories/helm
+  - bitnami.yaml
+  - cert-manager.yaml
+  - jetstack.yaml
+  - k8s-at-home.yaml
+  - kube-prometheus-community.yaml
+  - metrics-server.yaml
   - cilium-charts.yaml
   - fairwinds-charts.yaml
   - grafana-charts.yaml
