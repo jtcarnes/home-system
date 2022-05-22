@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: postgres-initdb-scrips
+    namespace: postgres
+stringData:
+    #ENC[AES256_GCM,data:C+E1BmHf8TAY3ByiyR12ZCui6ynMtEsprLoUen+3PMoscWWjNmrZWmAh0hUovA==,iv:NbgmOD+Vmm61bqYA3j2nOFUhKiEtg0pNNkkDQyUWdgw=,tag:0Y5R8pJi2N+p3H+JALzCnw==,type:comment]
+    createVaultUser.sql: ENC[AES256_GCM,data:0IuA/uZqLy+H1SiYJuYuSmpXPxbxiqd8vMCJIyyY+JoTi8U3si/ksHbBZQubavojZs9lbF904at4ATISF4IykeN72+mb,iv:0UaPpcj9Bq1a66O8nvrCM4YGNLIAUSyzw/UH+k777pE=,tag:7t/l3k+WMDVZgEE0hp01JQ==,type:str]
+    createdbs.sql: ENC[AES256_GCM,data:0Q9X5pu34WXPFK01++ExGltf/vziyxuxO/9Kl0R0VftwCUpJAulbordOqkmfpF6kwoXt0sH+tCZ87L8LfkvmUF1bDzW1z+ISc8g4PkcDXc+Z2b7dcIG6v8I=,iv:1fbnX/APo4jECLZv/DSM8VBvzfIgrRtTzFTwAXtXi+A=,tag:s6HKa4FnGE0C1U68d7iOyA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age13exjdp7pdsct3lh7j339tyvchhzprgqqk383gqtl6wsecmvrls3sn7fets
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBocGsySU9BK09yM3JMMUFN
+            YXNGYlNpcG9WZ2FWM0x6YzlRNkZZbVUybkdnCmFKVEFicUVCbkxDQnF3ZTNLcXZr
+            Q2lzNGhBeHBjL1ZLYm1ESmo1aG5QUEUKLS0tIG80b1VqT3RFVk1EcnRNZVJUVjlP
+            ZThpMXZ3NUJZSHBYYk8xaVpOWnJHcUUK4EImPLp4bd70sCvHutosDd2rUtbxHPZp
+            UGnkfKy0jtmM1Nw0in90F1KKfvkL+F+Ka1q7hL3DFWVaNx+kpwFaUQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-05-22T12:00:08Z"
+    mac: ENC[AES256_GCM,data:ziDFxPOr9sRu5IUTW7E7J2B0LDYBIrYoUYFoy5/Zn9Kt6EoI1YG1zTgj/OpTWNKQKQcKnQHoG8khQzT8Cq3MAS9rloO97DShmZqqAj9g39cE07ImR5j6HcwS8PowttXoSTBPb2UW0mMMX2bvBxygu2Z3NuKZ1UMSw+Z7jh5tVI4=,iv:73HDjnXA4Jws9t5lXQ76oPxbXhk9khpRdqhpPbXYtxk=,tag:edpPUcxJmZymGVToYKSTDA==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData|email|domains))
+    version: 3.7.2

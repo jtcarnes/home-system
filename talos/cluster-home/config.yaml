@@ -98,16 +98,15 @@ controlplane:
         - cluster-home.${domains.hardware}
 
     - op: add
-      path: /cluster/network/cni
+      path: /machine/sysctls
       value:
-        name: "custom"
-        urls:
-          - "https://raw.githubusercontent.com/bjw-s/home-ops/main/k8s/clusters/cluster-0/integrations/cilium-quick-install/quick-install.yaml"
-
-    - op: replace
-      path: /cluster/extraManifests
-      value:
-        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml"
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+        user:
+          max_user_namespaces: "11255"
+        vm:
+          nr_hugepages: "1024"
+        init_on_free: "1"
 
 workers:
   configPatches:
@@ -129,6 +128,11 @@ workers:
       value:
         fs.inotify.max_user_watches: "1048576"
         fs.inotify.max_user_instances: "8192"
+        user:
+          max_user_namespaces: "11255"
+        vm:
+          nr_hugepages: "1024"
+        init_on_free: "1"
 
     - op: add
       path: /machine/network/interfaces

@@ -1,0 +1,4 @@
+namespace: vault
+resources:
+  - helmrelease.yaml
+  - namespace.yaml

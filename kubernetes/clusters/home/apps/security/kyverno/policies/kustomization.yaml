@@ -2,3 +2,4 @@
 resources:
   - helmrelease.yaml
   - remove-cpu-limits.yaml
+  - ndot-patch.yaml

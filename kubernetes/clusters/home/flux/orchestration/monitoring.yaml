@@ -175,7 +175,7 @@ spec:
   dependsOn:
     - name: monitoring-namespace
   interval: 1h
-  path: "./k8s/clusters/home/apps/monitoring/vpa"
+  path: "./kubernetes/clusters/home/apps/monitoring/vpa"
   prune: true
   wait: true
   sourceRef:

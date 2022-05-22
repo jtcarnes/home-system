@@ -8,3 +8,4 @@ resources:
   - monitoring.yaml
   - storage.yaml
   - vpn.yaml
+  - postgresql.yaml

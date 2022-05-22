@@ -17,3 +17,6 @@ resources:
   - vector-chart.yaml
   - linkerd.yaml
   - nfd-charts.yaml
+  - falcosecurity.yaml
+  - hashicorp.yaml
+  - secret-csi-driver.yaml

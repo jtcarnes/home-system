@@ -9,4 +9,4 @@ venv/
 kubeconfig
 
 # machineConfigs
-k8s/talos/**/machineConfigs
+talos/**/machineConfigs

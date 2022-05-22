@@ -1,0 +1,6 @@
+namespace: postgres
+resources:
+  - helmrelease.yaml
+  - namespace.yaml
+  - rules.yaml
+  - postgres-secrets.sops.yaml
