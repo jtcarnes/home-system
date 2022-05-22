@@ -1,0 +1,6 @@
+namespace: redis
+resources:
+  - namespace.yaml
+  - helmrelease.yaml
+  - dashboard/
+  - redis-datasource.yaml
