@@ -93,7 +93,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         external-dns.alpha.kubernetes.io/target: ingress.${INGRESS_DOMAIN}
-      ingressClassName: ambassador
+      ingressClassName: nginx
       hosts:
         - host: &host "loki.${CLUSTER_NAME}.${INGRESS_DOMAIN}"
           paths:

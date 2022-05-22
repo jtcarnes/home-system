@@ -9,7 +9,6 @@ resources:
   - cilium-charts.yaml
   - fairwinds-charts.yaml
   - grafana-charts.yaml
-  - ambassador.yaml
   - descheduler.yaml
   - kyverno.yaml
   - metallb.yaml
@@ -20,3 +19,4 @@ resources:
   - falcosecurity.yaml
   - hashicorp.yaml
   - secret-csi-driver.yaml
+  - authentik.yaml

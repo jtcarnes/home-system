@@ -3,5 +3,5 @@ creation_rules:
     encrypted_regex: "(token|^key$|aescbcEncryptionSecret|secret|domains)"
     age: age1ngrr7pdxzvly5yk57xtqlquetk63vcajgnp27csua8hzqn9ly5zqkv7jph
   - path_regex: .*\.sops\.ya?ml
-    encrypted_regex: "((?i)(pass|secret($|[^N])|key|token|^data$|^stringData|email|domains))"
+    encrypted_regex: "((?i)(pass|secret($|[^N])|key|token|^data$|^stringData|email|domains|account*))"
     age: age13exjdp7pdsct3lh7j339tyvchhzprgqqk383gqtl6wsecmvrls3sn7fets

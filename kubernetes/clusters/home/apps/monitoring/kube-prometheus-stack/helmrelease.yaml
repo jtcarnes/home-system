@@ -129,17 +129,17 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: ambassador
+        ingressClassName: nginx
         pathType: Prefix
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: ingress.${INGRESS_DOMAIN}
         hosts:
-          - prometheus.${CLUSTER_NAME}.${INGRESS_DOMAIN}
+          - &host-prometheus prometheus.${CLUSTER_NAME}.${INGRESS_DOMAIN}
         tls:
           - secretName: prometheus-${CLUSTER_NAME}-tls
             hosts:
-              - prometheus.${CLUSTER_NAME}.${INGRESS_DOMAIN}
+              - *host-prometheus
 
       thanosService:
         enabled: true
@@ -243,11 +243,11 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: ingress.${INGRESS_DOMAIN}
         hosts:
-          - alertmanager.${CLUSTER_NAME}.${INGRESS_DOMAIN}
+          - &host-alertmanager alertmanager.${CLUSTER_NAME}.${INGRESS_DOMAIN}
         tls:
           - secretName: alertmanager-${CLUSTER_NAME}-tls
             hosts:
-              - alertmanager.${CLUSTER_NAME}.${INGRESS_DOMAIN}
+              - *host-alertmanager
 
       alertmanagerSpec:
         storage:

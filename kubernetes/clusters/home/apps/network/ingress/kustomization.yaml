@@ -1,3 +1,12 @@
+namespace: nginx
 resources:
   - namespace.yaml
   - helmrelease.yaml
+
+configMapGenerator:
+  - name: cloudflare-proxied-networks
+    files:
+      - cloudflare-proxied-networks.txt
+
+configurations:
+  - transformer.yaml
