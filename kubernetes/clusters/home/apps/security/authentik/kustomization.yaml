@@ -1,0 +1,13 @@
+namespace: authentik
+resources:
+  - namespace.yaml
+  - helmrelease.yaml
+  - secretclass.yaml
+
+secretGenerator:
+  - name: authentic-values
+    files:
+      - value.yamls=secrets.sops.yaml
+
+configurations:
+  - transformer.yaml

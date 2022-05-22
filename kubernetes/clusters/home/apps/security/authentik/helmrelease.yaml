@@ -1,0 +1,129 @@
+---
+# TODO(authentik): add security context
+# TODO(authentik): add network policies
+# TODO(authentik): fix nginx ingress annotations
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: security
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.goauthentik.io
+      chart: authentik
+      version: 2022.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: postgres
+      namespace: dbms
+  values:
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2022.5.2
+
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "ingress.${INGRESS_DOMAIN}"
+        external-dns/is-public: "true"
+        nginx.ingress.kubernetes.io/enable-global-auth: "false"
+      hosts:
+        - host: &host auth.${INGRESS_DOMAIN}
+          paths:
+            - path: /
+          tls:
+            - secretName: tls.authentik
+              hosts:
+                - *host
+
+    geoip:
+      enabled: true
+
+    authentik:
+      # TODO(authentik): add email config
+      email: {}
+      postgresql:
+        enabled: false
+        host: postgres-postgresql.postgres.svc.cluster.local
+        name: file:///mnt/secrets-store/postgres-user
+        password: file:///mnt/secrets-store/postgres-pass
+      redis:
+        enabled: false
+        host: redis-master.redis.svc.cluster.local
+        # TODO: add authentication to redis
+        name: "unused"
+        password: "unused"
+      log_level: debug
+      outposts:
+        docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+
+    volumeMounts:
+      - name: vault-db-creds
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
+
+    volumes:
+      - name: vault-db-creds
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "authentik-database"
+    prometheus:
+      rules:
+        create: true
+      serviceMonitor:
+        create: true
+
+  valuesFrom:
+    - kind: Secret
+      name: authentic-values
+
+    # envValueFrom:
+    #   AUTHENTIK_EMAIL__HOST:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__HOST
+    #   AUTHENTIK_EMAIL__PORT:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__PORT
+    #   AUTHENTIK_EMAIL__USERNAME:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__USERNAME
+    #   AUTHENTIK_EMAIL__PASSWORD:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__PASSWORD
+    #   AUTHENTIK_EMAIL__USE_TLS:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__USE_TLS
+    #   AUTHENTIK_EMAIL__FROM:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_EMAIL__FROM
+    #   AUTHENTIK_REDIS__CACHE_DB:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_REDIS__CACHE_DB
+    #   AUTHENTIK_REDIS__MESSAGE_QUEUE_DB:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_REDIS__MESSAGE_QUEUE_DB
+    #   AUTHENTIK_REDIS__WS_DB:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_REDIS__WS_DB
+    #   AUTHENTIK_REDIS__OUTPUT_SESSION_DB:
+    #     secretKeyRef:
+    #       name: authentik-secrets
+    #       key: AUTHENTIK_REDIS__OUTPUT_SESSION_DB
